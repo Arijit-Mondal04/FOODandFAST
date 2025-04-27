@@ -21,7 +21,7 @@ Welcome to **FOOD AND FAST** — a modern, animated, and responsive login and si
 
 ```plaintext
 ├── index.html           # Main login page
-├── signup.html          # Signup page (if created separately)
+├── signup.html          # Signup page 
 ├── /images/             # Logo and other image assets
-├── /css/                # (Optional) External CSS if separated
+├── /css/                # External CSS
 └── README.md            # You're here!
