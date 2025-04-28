@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NGO Registration | FOOD AND FAST</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(270deg, #f5af19, #f12711, #f5af19);
+      background-size: 600% 600%;
+      animation: moveBackground 20s ease infinite;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    @keyframes moveBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 1s ease;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #d35400;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .submit-btn {
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      font-weight: bold;
+      padding: 12px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .submit-btn:hover {
+      background-color: #d35400;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Responsive tweaks for small screens */
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 20px 15px;
+        border-radius: 10px;
+      }
+
+      input, textarea {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+
+      .submit-btn {
+        padding: 10px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>NGO Sign Up</h2>
+    <form action="#" method="POST" id="ngo-registration-form">
+      <input type="text" placeholder="NGO Name" name="ngo_name" required />
+      <input type="text" placeholder="Registration Number" name="reg_number" required />
+      <input type="text" placeholder="Authorized Person Name" name="authorized_person" required />
+      <input type="email" placeholder="Email Address" name="email" required />
+      <input type="tel" placeholder="Phone Number" name="phone" required />
+      <input type="text" placeholder="Type of NGO (e.g., Charitable, Educational)" name="ngo_type" required />
+      <textarea placeholder="Operational Areas (City, Region, etc.)" name="areas" required></textarea>
+      <textarea placeholder="Full Address" name="address" required></textarea>
+      <input type="text" placeholder="City" name="city" required />
+      <input type="text" placeholder="State" name="state" required />
+      <input type="text" placeholder="Zip Code" name="zip" required />
+      <input type="password" placeholder="Set Password" name="password" id="password" required />
+      <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password" required />
+      <button type="submit" class="submit-btn">Register</button>
+    </form>
+    <div id="success-message" style="display: none; color: green; text-align: center; margin-top: 20px;">Registration Successful!</div>
+  </div>
+
+  <script>
+    // Password matching validation
+    document.getElementById("ngo-registration-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirm_password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return; // Stop form submission
+      }
+
+      // If passwords match, simulate success
+      document.getElementById("success-message").style.display = "block";
+      // You can also send the form data to the server here via AJAX if needed.
+    });
+  </script>
+
+</body>
+</html>
