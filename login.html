@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login | FOOD AND FAST</title>
   <style>
+    /* Your existing styles (same as you posted) */
     /* Animated Gradient Background */
     body {
       margin: 0;
@@ -20,15 +21,11 @@
       position: relative;
       overflow: hidden;
     }
-
-    /* Moving background animation */
     @keyframes moveBackground {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
-    /* Floating Food Icons (optional cute animations) */
     .floating-icons {
       position: absolute;
       top: 0;
@@ -38,20 +35,16 @@
       overflow: hidden;
       pointer-events: none;
     }
-
     .floating-icons img {
       position: absolute;
       width: 50px;
       opacity: 0.5;
       animation: floatIcons 15s linear infinite;
     }
-
     @keyframes floatIcons {
       0% { transform: translateY(100vh) rotate(0deg); }
       100% { transform: translateY(-100vh) rotate(360deg); }
     }
-
-    /* Container for login form */
     .container {
       background: rgba(255, 255, 255, 0.9);
       padding: 40px 30px;
@@ -63,12 +56,10 @@
       z-index: 10;
       animation: fadeIn 1s ease;
     }
-
     h1 {
       margin-bottom: 20px;
       color: #005fa3;
     }
-
     .btn {
       display: block;
       width: 100%;
@@ -83,17 +74,14 @@
       cursor: pointer;
       transition: background-color 0.3s, transform 0.3s;
     }
-
     .btn:hover {
       background-color: #005fa3;
       transform: translateY(-2px);
     }
-
-    .login-form {
+    .login-form, .account-selection {
       display: none;
       margin-top: 20px;
     }
-
     .login-form input {
       width: 100%;
       padding: 12px;
@@ -101,7 +89,6 @@
       border: 1px solid #ccc;
       border-radius: 25px;
     }
-
     .login-form input[type="submit"] {
       background-color: #0077cc;
       color: white;
@@ -110,28 +97,87 @@
       cursor: pointer;
       transition: background-color 0.3s, transform 0.3s;
     }
-
     .login-form input[type="submit"]:hover {
       background-color: #005fa3;
       transform: translateY(-2px);
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
-
-    /* Responsive */
-    @media (max-width: 500px) {
-      .container {
-        padding: 30px 20px;
-      }
+    .account-selection {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
     }
+    .account-option {
+      background: linear-gradient(135deg, #6dd5fa, #2980b9);
+      color: white;
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 119, 204, 0.4);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    .account-option:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 95, 163, 0.6);
+      background: linear-gradient(135deg, #2980b9, #6dd5fa);
+    }
+    /* Loading Spinner */
+    .spinner-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #0077cc;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    /* Stylish Back Button */
+.btn.back-btn {
+  background: linear-gradient(135deg, #f7b733, #fc4a1a);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  padding: 14px;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(252, 74, 26, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn.back-btn:hover {
+  background: linear-gradient(135deg, #fc4a1a, #f7b733);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(252, 74, 26, 0.6);
+}
+
   </style>
 </head>
+
 <body>
 
-  <!-- Floating food icons -->
+  <!-- Floating Food Icons -->
   <div class="floating-icons">
     <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" style="left: 10%; animation-delay: 0s;">
     <img src="https://cdn-icons-png.flaticon.com/512/1046/1046757.png" style="left: 30%; animation-delay: 5s;">
@@ -139,10 +185,18 @@
     <img src="https://cdn-icons-png.flaticon.com/512/1046/1046821.png" style="left: 80%; animation-delay: 7s;">
   </div>
 
-  <div class="container">
+  <!-- Spinner -->
+  <div class="spinner-overlay" id="loadingSpinner">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="container" id="mainContainer">
     <img src="/images/logo.png" alt="FOOD AND FAST Logo" style="width: 150px; margin-bottom: 20px;">
-    <button class="btn" id="loginBtn">Already have an Account</button>
-    <button class="btn" id="createBtn">Create an Account</button>
+    
+    <div id="initialButtons">
+      <button class="btn" id="loginBtn">Already have an Account</button>
+      <button class="btn" id="createBtn">Create an Account</button>
+    </div>
 
     <div class="login-form" id="loginForm">
       <h2>Login</h2>
@@ -152,22 +206,85 @@
         <input type="submit" value="Login">
       </form>
     </div>
+
+    <div id="globalBackBtnContainer" style="margin-top: 20px; display: none;">
+      <button class="btn back-btn" id="globalBackBtn">← Back</button>
+    </div>
+    
+
+    <div class="account-selection" id="accountSelection">
+      <h2 style="color:#005fa3; margin-bottom:10px;">Select Account Type</h2>
+      <div class="account-option" id="hotelBtn">
+        🏨 Hotel / Restaurant - Donate Surplus Food
+      </div>
+      <div class="account-option" id="ngoBtn">
+        🏥 NGO - Organize Drives & Collect Food
+      </div>
+      <div class="account-option" id="volunteerBtn">
+        🙋 Volunteer - Join the Movement
+      </div>
+    
+      <div style="margin-top: 30px;">
+  <button class="btn back-btn" id="backBtn">← Back</button>
+</div>
+
+    </div>
+    
   </div>
 
   <script>
     const loginBtn = document.getElementById('loginBtn');
     const loginForm = document.getElementById('loginForm');
-
+    const createBtn = document.getElementById('createBtn');
+    const initialButtons = document.getElementById('initialButtons');
+    const accountSelection = document.getElementById('accountSelection');
+    const backBtn = document.getElementById('backBtn');
+    const globalBackBtnContainer = document.getElementById('globalBackBtnContainer');
+    const globalBackBtn = document.getElementById('globalBackBtn');
+    const spinner = document.getElementById('loadingSpinner');
+  
     loginBtn.addEventListener('click', () => {
       loginForm.style.display = 'block';
-      loginBtn.style.display = 'none';
+      initialButtons.style.display = 'none';
+      globalBackBtnContainer.style.display = 'block';
     });
-
-    const createBtn = document.getElementById('createBtn');
+  
     createBtn.addEventListener('click', () => {
-      window.location.href = "signup.html"; // Change link
+      accountSelection.style.display = 'flex';
+      initialButtons.style.display = 'none';
+    });
+  
+    backBtn.addEventListener('click', () => {
+      accountSelection.style.display = 'none';
+      initialButtons.style.display = 'block';
+    });
+  
+    globalBackBtn.addEventListener('click', () => {
+      loginForm.style.display = 'none';
+      globalBackBtnContainer.style.display = 'none';
+      initialButtons.style.display = 'block';
+    });
+  
+    function navigateWithSpinner(url) {
+      spinner.style.display = 'flex';
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1000);
+    }
+  
+    document.getElementById('hotelBtn').addEventListener('click', () => {
+      navigateWithSpinner('hotel_signup.html');
+    });
+  
+    document.getElementById('ngoBtn').addEventListener('click', () => {
+      navigateWithSpinner('ngo_signup.html');
+    });
+  
+    document.getElementById('volunteerBtn').addEventListener('click', () => {
+      navigateWithSpinner('volunteer_signup.html');
     });
   </script>
+  
 
 </body>
 </html>
